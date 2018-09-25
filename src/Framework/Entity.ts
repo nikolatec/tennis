@@ -28,7 +28,9 @@ export default abstract class Entity implements IEntity {
   abstract draw(scene: Scene): void;
   abstract update(scene: Scene): void;
 
-  getEntityById(id: string) {
-    return this.game.entities.filter(e => e.id === id)[0];
+  getEntitiesById(id: string) {
+    const entities = [];
+    entities.push(this.game.entities.filter(e => e.id === id)[0]);
+    return entities;
   }
 }

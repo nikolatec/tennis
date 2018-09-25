@@ -19,7 +19,7 @@ export default class Player extends Entity {
 
   public update(scene: Scene) {
     if (this.ai) {
-      const ball = this.getEntityById('ball');
+      const ball = this.getEntitiesById('ball')[0];
       this.playAi(scene, ball);
     } 
   };

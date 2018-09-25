@@ -13,9 +13,9 @@ export default class Ball extends Entity {
     this.x += this.xVelocity;
     this.y += this.yVelocity;
 
-    const player1 = this.getEntityById('player1');
-    const player2 = this.getEntityById('player2');
-    const score = this.getEntityById('score');
+    const player1 = this.getEntitiesById('player1')[0];
+    const player2 = this.getEntitiesById('player2')[0];
+    const score = this.getEntitiesById('score')[0];
 
     this.handlePlayerCollision(scene, player1, player2);
     this.handleVoid(scene, score);
