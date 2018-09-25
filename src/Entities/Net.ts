@@ -1,6 +1,6 @@
-import IScene from '../Framework/interfaces/IScene';
-import Entity from '../Framework/Entity';
-import IEntity from '../Framework/interfaces/IEntity';
+import Scene from '../../../gamekit/src/Core/Scene';
+import Entity from '../../../gamekit/src/Core/Entity';
+import IEntity from '../../../gamekit/src/Core/interfaces/IEntity';
 
 export default class Net extends Entity {
   
@@ -8,9 +8,9 @@ export default class Net extends Entity {
     super({id, color})
   }
 
-  update(scene: IScene) {}
+  update(scene: Scene) {}
 
-  draw(scene: IScene) {
+  draw(scene: any) {
     scene.context.fillStyle = 'white';
     for (var i = 0; i < scene.canvas.height; i += 41) {
       scene.context.fillRect(scene.canvas.width / 2 - 1, i, 2, 25);

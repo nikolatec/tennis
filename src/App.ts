@@ -1,4 +1,4 @@
-import Game from './Framework/Game';
+import Game from '../../gamekit/src/Core/Game';
 import Net from './Entities/Net';
 import Player from './Entities/Player';
 import Ball from './Entities/Ball';
@@ -43,7 +43,7 @@ new Score({
 new Net({
   id: 'net',
   color: 'white'
-})
+});
 
 let game = Game.createGame({
   fps: config.FPS,
@@ -56,7 +56,7 @@ function handleMouse(event: any) {
   const mousePosition = game.calculateMousePosition(event);
   const halfHeight = player1.height / 2;
   // limit player
-  if (mousePosition.y > game.scene.height - halfHeight || mousePosition.y < halfHeight) {
+  if (mousePosition.y > config.SCENE_HEIGHT - halfHeight || mousePosition.y < halfHeight) {
     return;
   }
   player1.y = mousePosition.y - halfHeight;
