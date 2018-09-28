@@ -1,6 +1,11 @@
-import Scene from '../../../gamekit/src/Core/Scene';
-import Entity from '../../../gamekit/src/Core/Entity';
-import IEntity from '../../../gamekit/src/Core/interfaces/IEntity';
+import {
+  IScene,
+  IEntity
+} from '../../../gamekit/src/Core/interfaces';
+import {
+  Scene,
+  Entity,
+} from '../../../gamekit/src';
 import config from '../Config';
 
 export default class Score extends Entity {
@@ -10,16 +15,28 @@ export default class Score extends Entity {
   
   constructor({id, color}: IEntity) {
 
-    super({id, color})
+    super({id, color});
   }
 
-  update(scene: Scene) {
+  update(scene: IScene) {}
 
-  }
+  draw(scene: IScene) {
 
-  draw(scene: Scene) {
-
-    scene.context.fillText(this.player1Score, 100, 100);
-    scene.context.fillText(this.player2Score, config.SCENE_WIDTH - 100, 100);
+    scene.text({
+      text: this.player1Score,
+      color: 'white',
+      x: 100,
+      y: 100,
+      font: 'Arial',
+      fontSize: 15,
+    });
+    scene.text({
+      text: this.player2Score,
+      color: 'white',
+      x: config.SCENE_WIDTH - 100,
+      y: 100,
+      font: 'Arial',
+      fontSize: 15,
+    });
   }
 }

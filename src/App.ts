@@ -1,4 +1,7 @@
-import Game from '../../gamekit/src/Core/Game';
+import {
+  Game,
+  CalculateMousePosition
+} from '../../gamekit/src';
 import Net from './Entities/Net';
 import Player from './Entities/Player';
 import Ball from './Entities/Ball';
@@ -53,7 +56,7 @@ let game = Game.createGame({
 });
 
 function handleMouse(event: any) {
-  const mousePosition = game.calculateMousePosition(event);
+  const mousePosition = CalculateMousePosition(event);
   const halfHeight = player1.height / 2;
   // limit player
   if (mousePosition.y > config.SCENE_HEIGHT - halfHeight || mousePosition.y < halfHeight) {

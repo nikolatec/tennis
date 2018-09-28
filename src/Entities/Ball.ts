@@ -1,6 +1,11 @@
-import IEntity from '../../../gamekit/src/Core/Interfaces/IEntity';
-import Entity from '../../../gamekit/src/Core/Entity';
-import Scene from '../../../gamekit/src/Core/Scene';
+import {
+  IEntity,
+  IScene
+}from '../../../gamekit/src/Core/Interfaces';
+import {
+  Entity,
+  Scene,
+} from '../../../gamekit/src';
 import config from '../Config';
 
 export default class Ball extends Entity {
@@ -10,7 +15,7 @@ export default class Ball extends Entity {
     super({id, color, x, y, width, height, xVelocity, yVelocity});
   }
 
-  public update(scene: Scene) {
+  public update(scene: IScene) {
 
     this.x += this.xVelocity;
     this.y += this.yVelocity;
@@ -20,25 +25,25 @@ export default class Ball extends Entity {
     const score = this.getEntitiesById('score')[0];
 
     this.handlePlayerCollision(scene, player1, player2);
-    this.handleVoid(scene, score);
+    this.handleVoid(score);
     this.handleVerticalWalls(scene);
   }
 
-  private handleVoid(scene: Scene, score: any) {
+  private handleVoid(score: any) {
 
     if (this.x > config.SCENE_WIDTH) {
-      this.resetBall(scene);
+      this.resetBall();
       this.xVelocity = -this.xVelocity;
       score.player1Score++;
     }
     if (this.x < 0) {
-      this.resetBall(scene);
+      this.resetBall();
       this.xVelocity = -this.xVelocity;
       score.player2Score++;
     }
   }
 
-  private handleVerticalWalls(scene: Scene) {
+  private handleVerticalWalls(scene: IScene) {
 
     if (this.y > config.SCENE_HEIGHT) {
       this.yVelocity = -this.yVelocity;
@@ -48,7 +53,7 @@ export default class Ball extends Entity {
     }
   }
 
-  private handlePlayerCollision(scene: Scene, player1: any, player2: any) {
+  private handlePlayerCollision(scene: IScene, player1: any, player2: any) {
 
     if (this.x < config.PADDING + player1.width + this.width) {
       if (this.y > player1.y && this.y < player1.y + player1.height) {
@@ -78,19 +83,14 @@ export default class Ball extends Entity {
     this.yVelocity = deltaY * 0.15;
   }
 
-  private resetBall(scene: Scene) {
+  private resetBall() {
 
     this.x = config.SCENE_WIDTH / 2;
     this.y = config.SCENE_HEIGHT / 2;
   }
 
-  public draw(scene: Scene) {
+  public draw(scene: IScene) {
     
-    scene.context.shadowBlur = 20;
-    scene.context.shadowColor = this.color;
-    scene.context.fillStyle = this.color;
-    scene.context.beginPath();
-    scene.context.arc(this.x, this.y, this.width, 0, Math.PI * 2, true);
-    scene.context.fill();
+    scene.arc({color: this.color, x: this.x, y: this.y, radius: this.width, startAngle: 0, endAngle: Math.PI * 2, close: true});
   }
 }

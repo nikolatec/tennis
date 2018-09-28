@@ -1,6 +1,10 @@
-import IEntity from '../../../gamekit/src/Core/Interfaces/IEntity';
-import Entity from '../../../gamekit/src/Core/Entity';
-import Scene from '../../../gamekit/src/Core/Scene';
+import {
+  IScene,
+  IEntity
+} from '../../../gamekit/src/Core/Interfaces';
+import {
+  Entity,
+} from '../../../gamekit/src';
 import config from '../Config';
 
 export default class Player extends Entity {
@@ -13,23 +17,26 @@ export default class Player extends Entity {
     this.ai = ai;
   }
 
-  public update(scene: Scene) {
+  public update(scene: IScene) {
 
     if (this.ai) {
       const ball = this.getEntitiesById('ball')[0];
-      this.playAi(scene, ball);
+      this.playAi(ball);
     } 
   };
 
-  public draw(scene: Scene) {
+  public draw(scene: IScene) {
 
-    scene.context.fillStyle = this.color;
-    scene.context.shadowBlur = 20;
-    scene.context.shadowColor = this.color;
-    scene.context.fillRect(this.x, this.y,  this.width, this.height);
+    scene.rect({
+      color: this.color,
+      x: this.x,
+      y: this.y,
+      width: this.width,
+      height: this.height
+    });
   }
 
-  private playAi(scene: Scene, ball: Entity) {
+  private playAi(ball: Entity) {
 
     var distance = Math.abs(this.y + this.height / 2 - ball.y);
     var deltaY = Math.floor(distance * 0.15);
