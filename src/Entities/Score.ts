@@ -3,7 +3,6 @@ import {
   IEntity
 } from '../../../gamekit/src/Core/interfaces';
 import {
-  Scene,
   Entity,
 } from '../../../gamekit/src';
 import config from '../Config';

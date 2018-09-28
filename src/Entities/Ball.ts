@@ -4,8 +4,8 @@ import {
 }from '../../../gamekit/src/Core/Interfaces';
 import {
   Entity,
-  Scene,
 } from '../../../gamekit/src';
+import Player from './Player';
 import config from '../Config';
 
 export default class Ball extends Entity {
@@ -58,28 +58,20 @@ export default class Ball extends Entity {
     if (this.x < config.PADDING + player1.width + this.width) {
       if (this.y > player1.y && this.y < player1.y + player1.height) {
         this.xVelocity = -this.xVelocity;
-        this.handlePlayer1Angle(player1);
+        this.speedBallOnEdge(player1);
       }
     }
     if (this.x > config.SCENE_WIDTH - (config.PADDING + player2.width + this.width)) {
       if (this.y > player2.y && this.y < player2.y + player2.height) {
         this.xVelocity = -this.xVelocity;
-        this.handlePlayer2Angle(player2);
+        this.speedBallOnEdge(player2);
       }
     }
   }
 
-  private handlePlayer1Angle(player1: any) {
+  private speedBallOnEdge(player: Player) {
 
-    // speed up ball on edges
-    var deltaY = this.y - (player1.y + player1.height / 2);
-    this.yVelocity = deltaY * 0.15;
-  }
-
-  private handlePlayer2Angle(player2: any) {
-
-    // speed up ball on edges
-    var deltaY = this.y - (player2.y + player2.height / 2);
+    const deltaY = this.y - (player.y + player.height / 2);
     this.yVelocity = deltaY * 0.15;
   }
 
