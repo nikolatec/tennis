@@ -1,4 +1,8 @@
 import {
+  Node,
+  Point,
+  Transform,
+  Velocity,
   Game,
   CalculateMousePosition
 } from '../../gamekit/src';
@@ -9,43 +13,31 @@ import Score from './Entities/Score';
 import config from './Config';
 
 let player1 = new Player({
-  id: 'player1',
-  color: 'white',
-  x: config.PADDING,
-  y: config.SCENE_HEIGHT / 2 - config.PLAYER_HEIGHT / 2,
-  width: config.PLAYER_WIDTH,
-  height: config.PLAYER_HEIGHT,
+  node: new Node('player1', 'white'),
+  point: new Point(config.PADDING, config.SCENE_HEIGHT / 2 - config.PLAYER_HEIGHT / 2),
+  transform: new Transform(config.PLAYER_WIDTH, config.PLAYER_HEIGHT)
 });
 
 let player2 = new Player({
-  id: 'player2',
-  color: 'white',
-  x: config.SCENE_WIDTH - config.PADDING - config.PLAYER_WIDTH,
-  y: config.SCENE_HEIGHT / 2 - config.PLAYER_HEIGHT / 2,
-  width: config.PLAYER_WIDTH,
-  height: config.PLAYER_HEIGHT,
+  node: new Node('player2', 'white'),
+  point: new Point(config.SCENE_WIDTH - config.PADDING - config.PLAYER_WIDTH, config.SCENE_HEIGHT / 2 - config.PLAYER_HEIGHT / 2),
+  transform: new Transform(config.PLAYER_WIDTH, config.PLAYER_HEIGHT),
   ai: true,
 });
 
 new Ball({
-  id: 'ball',
-  color: 'white',
-  x: config.SCENE_WIDTH / 2,
-  y: config.SCENE_HEIGHT / 2,
-  width: config.BALL_SIZE,
-  height: config.BALL_SIZE,
-  xVelocity: 5,
-  yVelocity: 5,
+  node: new Node('ball', 'white'),
+  point: new Point(config.SCENE_WIDTH / 2, config.SCENE_HEIGHT / 2),
+  transform: new Transform(config.BALL_SIZE, config.BALL_SIZE),
+  velocity: new Velocity(5, 5)
 });
 
 new Score({
-  id: 'score',
-  color: 'white'
+  node: new Node('score', 'white')
 });
 
 new Net({
-  id: 'net',
-  color: 'white'
+  node: new Node('net', 'white')
 });
 
 let game = Game.createGame({
@@ -57,12 +49,12 @@ let game = Game.createGame({
 
 function handleMouse(event: any) {
   const mousePosition = CalculateMousePosition(event);
-  const halfHeight = player1.height / 2;
+  const halfHeight = player1.transform.height / 2;
   // limit player
   if (mousePosition.y > config.SCENE_HEIGHT - halfHeight || mousePosition.y < halfHeight) {
     return;
   }
-  player1.y = mousePosition.y - halfHeight;
+  player1.point.y = mousePosition.y - halfHeight;
 }
 
 game.scene.canvas.addEventListener('mousemove', handleMouse);

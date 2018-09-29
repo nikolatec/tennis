@@ -9,8 +9,8 @@ import config from '../Config';
 
 export default class Net extends Entity {
   
-  constructor({id, color}: IEntity) {
-    super({id, color})
+  constructor({node}: IEntity) {
+    super({node})
   }
 
   update(scene: IScene) {}

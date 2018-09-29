@@ -12,9 +12,9 @@ export default class Score extends Entity {
   player1Score: string = '0';
   player2Score: string = '0';
   
-  constructor({id, color}: IEntity) {
+  constructor({node}: IEntity) {
 
-    super({id, color});
+    super({node});
   }
 
   update(scene: IScene) {}
